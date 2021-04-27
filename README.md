@@ -1,2 +1,2 @@
-# myGin
+# Lin
 web framework like gin
