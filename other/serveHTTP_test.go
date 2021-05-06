@@ -1,0 +1,39 @@
+/*
+ * @Author: Liu Yuchen
+ * @Date: 2021-05-06 06:55:11
+ * @LastEditors: Liu Yuchen
+ * @LastEditTime: 2021-05-06 06:57:13
+ * @Description:
+ * @FilePath: /Lin/other/serveHTTP_test.go
+ * @GitHub: https://github.com/liuyuchen777
+ */
+
+package other
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"testing"
+)
+
+// Engine is the uni handler for all requests
+type Engine struct{}
+
+func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	switch req.URL.Path {
+	case "/":
+		fmt.Fprintf(w, "URL.Path = %q\n", req.URL.Path)
+	case "/hello":
+		for k, v := range req.Header {
+			fmt.Fprintf(w, "Header[%q] = %q\n", k, v)
+		}
+	default:
+		fmt.Fprintf(w, "404 NOT FOUND: %s\n", req.URL)
+	}
+}
+
+func TestHandlerInterface(t *testing.T) {
+	engine := new(Engine)
+	log.Fatal(http.ListenAndServe(":9090", engine))
+}
