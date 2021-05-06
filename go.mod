@@ -2,6 +2,6 @@ module example
 
 go 1.16
 
-require Lin v0.0.0
+require lin v0.0.0
 
-replace Lin => ./Lin
+replace lin => ./lin
